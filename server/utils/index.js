@@ -1,5 +1,5 @@
 import CARDS from '../cards'
-import {CONFIG, DEBUG_CONFIG} from '../../config'
+import {CONFIG, DEBUG_CONFIG, COST_CONFIG} from '../../config'
 
 export function equalCard(card1, card2) {
 	if (!card1 || !card2) return false
@@ -146,7 +146,7 @@ export const validateDeck = (deckCards) => {
 	const common = deckCards.filter((cardId) => CARDS[cardId].rarity === 'common')
 	const rare = deckCards.filter((cardId) => CARDS[cardId].rarity === 'rare')
 	const ur = deckCards.filter((cardId) => CARDS[cardId].rarity === 'ultra_rare')
-
+	const deckCost = deckCards.reduce((aggt,cardId) => aggt + COST_CONFIG[cardId], 0)
 	// order validation by simplest problem first, so that a player can easily identify why their deck isn't valid
 
 	const hasHermit = deckCards.some((cardId) => CARDS[cardId].type === 'hermit')
@@ -181,4 +181,8 @@ export const validateDeck = (deckCards) => {
 		return `Deck must have at least ${limits.minCards} cards.`
 	if (deckCards.length > limits.maxCards)
 		return `Deck can not have more than ${limits.maxCards} cards.`
+
+	if (!!limits.maxCost && (deckCost > limits.maxCost) ){
+		return `Deck cannot cost more than ${limits.maxCost} tokens.`
+	}
 }

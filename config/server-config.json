@@ -2,8 +2,8 @@
 	"port": 9000,
 	"clientDevPort": 3002,
 	"clientPath": "client/dist",
-	"cors": ["http://localhost:3002", "https://hc-tcg.fly.dev"],
-	"world": "fly",
+	"cors": ["http://localhost:3002", "https://hc-tcg.fly.dev", "https://tcg.prof.ninja"],
+	"world": "limited",
 	"limits": {
 		"maxTurnTime": 90,
 		"minCards": 42,
@@ -11,7 +11,8 @@
 		"maxDuplicates": 3,
 		"allowUltraRareDuplicates": false,
 		"maxRare": 12,
-		"maxUltraRare": 3
+		"maxUltraRare": 3,
+		"maxCost": 25
 	},
 	"logoSubText": "Not Official!"
 }

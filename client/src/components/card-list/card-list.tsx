@@ -6,6 +6,7 @@ import {CardT} from 'types/game-state'
 import Card from 'components/card'
 import css from './card-list.module.css'
 import {equalCard} from 'server/utils'
+import {COST_CONFIG} from '../../../../config'
 
 const SIZE = {
 	medium: 200,
@@ -38,6 +39,7 @@ const CardList = (props: CardListProps) => {
 
 	const cardsOutput = transitions((style: any, card: CardT) => {
 		const info = CARDS[card.cardId]
+		const costClass = `cost${COST_CONFIG[card.cardId]}`;
 		if (!info) return null
 		const isSelected = equalCard(card, selected)
 		const isPicked = !!picked?.find((pickedCard) => equalCard(card, pickedCard))
@@ -45,7 +47,7 @@ const CardList = (props: CardListProps) => {
 			<animated.div
 				style={style}
 				key={card.cardInstance}
-				className={classnames(css.card, {[css.clickable]: !!onClick})}
+				className={classnames(css.card, {[css.clickable]: !!onClick}, css[costClass])}
 			>
 				<Card
 					onClick={onClick ? () => onClick(card) : undefined}

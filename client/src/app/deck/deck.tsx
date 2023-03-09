@@ -9,6 +9,7 @@ import {validateDeck} from 'server/utils'
 import css from './deck.module.css'
 import {getPlayerDeck} from 'logic/session/session-selectors'
 import ImportExport from './import-export'
+import {CONFIG, COST_CONFIG} from '../../../../config'
 
 const TYPED_CARDS = CARDS as Record<string, CardInfoT>
 
@@ -73,6 +74,11 @@ const Deck = ({setMenuSection}: Props) => {
 	)
 	const ultraRareCards = pickedCards.filter(
 		(card) => TYPED_CARDS[card.cardId].rarity === 'ultra_rare'
+	)
+
+	const deckCost = pickedCards.reduce(
+		(aggt,card) => aggt + COST_CONFIG[card.cardId],
+		0
 	)
 
 	const validationMessage = validateDeck(pickedCards.map((card) => card.cardId))
@@ -186,6 +192,10 @@ const Deck = ({setMenuSection}: Props) => {
 						<span> </span>
 						<span className={css.ultraRareAmount} title="Ultra rare">
 							{ultraRareCards.length}
+						</span>
+						<span> - Tokens left: </span>
+						<span title="Deck cost">
+							{(CONFIG.maxCost || 25) - deckCost}
 						</span>
 					</div>
 					<CardList
