@@ -1,7 +1,7 @@
 import path from 'path'
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
-import {CONFIG} from '../config'
+import {CONFIG,COST_CONFIG} from '../config'
 // import eslint from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
@@ -12,6 +12,7 @@ export default defineConfig({
 		__PORT__: JSON.stringify(CONFIG.port),
 		__LIMITS__: JSON.stringify(CONFIG.limits),
 		__LOGO_SUBTEXT__: JSON.stringify(CONFIG.logoSubText),
+		__CARD_COSTS__: JSON.stringify(COST_CONFIG),
 	},
 	resolve: {
 		alias: {

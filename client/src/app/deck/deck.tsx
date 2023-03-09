@@ -9,7 +9,6 @@ import {validateDeck} from 'server/utils'
 import css from './deck.module.css'
 import {getPlayerDeck} from 'logic/session/session-selectors'
 import ImportExport from './import-export'
-import {CONFIG, COST_CONFIG} from '../../../../config'
 
 const TYPED_CARDS = CARDS as Record<string, CardInfoT>
 
@@ -77,7 +76,7 @@ const Deck = ({setMenuSection}: Props) => {
 	)
 
 	const deckCost = pickedCards.reduce(
-		(aggt,card) => aggt + COST_CONFIG[card.cardId],
+		(aggt, card) => aggt + __CARD_COSTS__[card.cardId],
 		0
 	)
 
@@ -195,7 +194,7 @@ const Deck = ({setMenuSection}: Props) => {
 						</span>
 						<span> - Tokens left: </span>
 						<span title="Deck cost">
-							{(CONFIG.maxCost || 25) - deckCost}
+							{(__LIMITS__.maxCost || 25) - deckCost}
 						</span>
 					</div>
 					<CardList
