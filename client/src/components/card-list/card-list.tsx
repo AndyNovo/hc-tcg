@@ -14,6 +14,7 @@ const SIZE = {
 
 type CardListProps = {
 	cards: Array<CardT>
+	disabled?: Array<string>
 	selected?: CardT | null
 	picked?: Array<CardT>
 	onClick?: (card: CardT) => void
@@ -22,7 +23,8 @@ type CardListProps = {
 }
 
 const CardList = (props: CardListProps) => {
-	const {cards, wrap, onClick, selected, picked, size = 'medium'} = props
+	const {wrap, onClick, size = 'medium'} = props
+	const {cards, disabled, selected, picked} = props
 	const listRef = useRef<HTMLDivElement>(null)
 
 	const transitions = useTransition(cards, {
@@ -42,6 +44,7 @@ const CardList = (props: CardListProps) => {
 		if (!info) return null
 		const isSelected = equalCard(card, selected)
 		const isPicked = !!picked?.find((pickedCard) => equalCard(card, pickedCard))
+		const isDisabled = !!disabled?.find((id) => card.cardId === id)
 		return (
 			<animated.div
 				style={style}
@@ -53,7 +56,7 @@ const CardList = (props: CardListProps) => {
 				)}
 			>
 				<Card
-					onClick={onClick ? () => onClick(card) : undefined}
+					onClick={onClick && !isDisabled ? () => onClick(card) : undefined}
 					card={info}
 					selected={isSelected}
 					picked={isPicked}
