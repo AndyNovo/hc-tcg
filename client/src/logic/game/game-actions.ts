@@ -1,12 +1,12 @@
-import {GameStatePayload} from 'types/game-state'
+import {GameStatePayload} from 'common/types/game-state'
 import {
 	CardT,
 	GameEndOutcomeT,
 	GameEndReasonT,
 	CurrentCoinFlipT,
-} from 'types/game-state'
-import {PickProcessT, PickedCardT} from 'types/pick-process'
-import {MessageInfoT} from 'types/chat'
+} from 'common/types/game-state'
+import {PickProcessT, PickedCardT} from 'common/types/pick-process'
+import {MessageInfoT} from 'common/types/chat'
 
 export const gameState = (gameState: GameStatePayload) => ({
 	type: 'GAME_STATE' as const,
@@ -56,9 +56,11 @@ export const forfeit = () => ({
 	type: 'FORFEIT' as const,
 })
 
+type ExtraItemT = {hermitId: string; type: 'primary' | 'secondary'}
+
 export const startAttack = (
 	type: 'zero' | 'primary' | 'secondary',
-	extra?: Record<string, any>
+	extra?: Record<string, ExtraItemT>
 ) => ({
 	type: 'START_ATTACK' as const,
 	payload: {type, extra},

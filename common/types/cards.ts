@@ -13,7 +13,8 @@ export type HermitTypeT =
 	| 'prankster'
 	| 'miner'
 	| 'explorer'
-	| 'any'
+
+export type CardTypeT = 'item' | 'single_use' | 'effect' | 'hermit' | 'health'
 
 export type DamageT = {
 	target?: number
@@ -22,7 +23,8 @@ export type DamageT = {
 }
 
 export type ProtectionT = {
-	target: number
+	target?: number
+	backlash?: number
 	discard?: boolean
 }
 
@@ -31,7 +33,7 @@ export type AnyCardT = {
 	type: string
 	rarity: CardRarityT
 	id: string
-	pickOn?: 'attack' | 'apply' | 'followup' | 'use-opponent'
+	pickOn?: 'attack' | 'apply' | 'followup' | 'use-opponent' | 'use-ally'
 	useReqs?: Array<PickRequirmentT>
 	pickReqs?: Array<PickRequirmentT>
 }
@@ -69,3 +71,11 @@ export type HermitCardT = AnyCardT & {
 }
 
 export type CardInfoT = ItemCardT | EffectCardT | HermitCardT | HealthCardT
+
+export type CardTypesMapT = {
+	hermit: HermitCardT
+	item: ItemCardT
+	effect: EffectCardT
+	single_use: EffectCardT
+	health: HealthCardT
+}

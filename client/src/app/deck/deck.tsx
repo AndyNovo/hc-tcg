@@ -1,16 +1,14 @@
 import classnames from 'classnames'
 import {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {CardInfoT} from 'types/cards'
-import {CardT} from 'types/game-state'
+import {CardInfoT} from 'common/types/cards'
+import {CardT} from 'common/types/game-state'
 import CardList from 'components/card-list'
 import CARDS from 'server/cards'
 import {validateDeck} from 'server/utils'
 import css from './deck.module.css'
 import {getPlayerDeck} from 'logic/session/session-selectors'
 import ImportExport from './import-export'
-
-const TYPED_CARDS = CARDS as Record<string, CardInfoT>
 
 const TYPE_ORDER = {
 	hermit: 0,
@@ -22,8 +20,8 @@ const TYPE_ORDER = {
 
 const sortCards = (cards: Array<CardT>): Array<CardT> => {
 	return cards.slice().sort((a: CardT, b: CardT) => {
-		const cardInfoA = TYPED_CARDS[a.cardId]
-		const cardInfoB = TYPED_CARDS[b.cardId]
+		const cardInfoA = CARDS[a.cardId]
+		const cardInfoB = CARDS[b.cardId]
 		if (cardInfoA.type !== cardInfoB.type) {
 			return TYPE_ORDER[cardInfoA.type] - TYPE_ORDER[cardInfoB.type]
 		} else if (
@@ -66,13 +64,13 @@ const Deck = ({setMenuSection}: Props) => {
 	}
 
 	const commonCards = pickedCards.filter(
-		(card) => TYPED_CARDS[card.cardId].rarity === 'common'
+		(card) => CARDS[card.cardId].rarity === 'common'
 	)
 	const rareCards = pickedCards.filter(
-		(card) => TYPED_CARDS[card.cardId].rarity === 'rare'
+		(card) => CARDS[card.cardId].rarity === 'rare'
 	)
 	const ultraRareCards = pickedCards.filter(
-		(card) => TYPED_CARDS[card.cardId].rarity === 'ultra_rare'
+		(card) => CARDS[card.cardId].rarity === 'ultra_rare'
 	)
 
 	const deckCost = pickedCards.reduce(
@@ -115,12 +113,10 @@ const Deck = ({setMenuSection}: Props) => {
 	const loadDeck = () => {
 		const deck = localStorage.getItem('Loadout_' + deckName)
 		if (!deck) return
-		const deckIds = JSON.parse(deck).filter(
-			(card: CardT) => TYPED_CARDS[card.cardId]
-		)
+		const deckIds = JSON.parse(deck).filter((card: CardT) => CARDS[card.cardId])
 		setPickedCards(deckIds)
 	}
-	const allCards = Object.values(TYPED_CARDS).map(
+	const allCards = Object.values(CARDS).map(
 		(card: CardInfoT): CardT => ({
 			cardId: card.id,
 			cardInstance: card.id,

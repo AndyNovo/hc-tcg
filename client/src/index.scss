@@ -1,33 +1,39 @@
 @font-face {
 	font-family: Minecraft;
-	src: url(/fonts/MinecraftRegular-Bmg3.otf);
+	src: url('/fonts/MinecraftRegular-Bmg3.otf');
 }
 
 @font-face {
 	font-family: MinecraftBold;
-	src: url(/fonts/MinecraftBold-nMK1.otf);
+	src: url('/fonts/MinecraftBold-nMK1.otf');
 }
 
 @font-face {
 	font-family: MinecraftItalic;
-	src: url(/fonts/MinecraftItalic-R8Mo.otf);
+	src: url('/fonts/MinecraftItalic-R8Mo.otf');
 }
 
 @font-face {
 	font-family: BangersRegular;
-	src: url(/fonts/BangersRegular.otf);
+	src: url('/fonts/BangersRegular.otf');
 }
 
 @font-face {
 	font-family: BangersBold;
-	src: url(/fonts/BangersBold.otf);
+	src: url('/fonts/BangersBold.otf');
+}
+
+html,
+body,
+#root,
+main {
+	height: 100%;
 }
 
 body {
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+		Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background: rgb(72, 72, 72);
@@ -56,18 +62,11 @@ button {
 	color: #ddd;
 	text-shadow: 2px 2px #000a;
 	box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
-}
 
-button:disabled {
-	opacity: 0.7;
-	box-shadow: none;
-}
-
-button:not(:disabled):hover {
-	cursor: pointer;
-	background-color: rgba(100, 100, 255, 0.45);
-	text-shadow: 2px 2px #202013cc;
-	color: #ffffa0;
+	&:disabled {
+		opacity: 0.7;
+		box-shadow: none;
+	}
 }
 
 input {
@@ -82,30 +81,42 @@ input {
 
 /* changes for new look, note that all the above will get redone eventually */
 
-.temp button {
-	line-height: 100%;
-	text-align: center;
-	height: 5vh;
-	font-size: 2vh;
-	border: 0.3vh solid #000;
-	text-shadow: 0.2vh 0.2vh #000;
-	box-shadow: inset -0.3vh -0.5vh #0006, inset 0.3vh 0.3vh #fff7;
-	padding: 0 2vh;
+.temp {
+	button {
+		line-height: 100%;
+		text-align: center;
+		height: 5vh;
+		font-size: 2vh;
+		border: 0.3vh solid #000;
+		text-shadow: 0.2vh 0.2vh #000;
+		box-shadow: inset -0.3vh -0.5vh #0006, inset 0.3vh 0.3vh #fff7;
+		padding: 0 2vh;
+	}
+
+	input {
+		border: 0.3vh solid #000;
+		height: 5vh;
+		font-size: 2vh;
+
+		&:focus-visible {
+			outline-offset: 0;
+			outline: none;
+		}
+	}
 }
+
+button:not(:disabled):hover {
+	cursor: pointer;
+	background-color: rgba(100, 100, 255, 45%);
+	text-shadow: 2px 2px #202013cc;
+	color: #ffffa0;
+}
+
 .temp button:not(:disabled):hover {
 	text-shadow: 0.3vh 0.3vh #202013cc;
 }
 
-.temp input {
-	border: 0.3vh solid #000;
-	height: 5vh;
-	font-size: 2vh;
-}
-.temp input:focus-visible {
-	outline-offset: 0;
-	outline: none;
-}
-
+/* scrollbar */
 ::-webkit-scrollbar {
 	width: 1.5vh;
 	height: 1.5vh;
@@ -124,9 +135,9 @@ input {
 	border: 0.5vh solid transparent;
 	border-radius: 0.5vh;
 	background-clip: padding-box;
-
 	margin: 0.5vh;
 }
+
 ::-webkit-scrollbar-button,
 ::-webkit-scrollbar-track-piece,
 ::-webkit-scrollbar-corner,

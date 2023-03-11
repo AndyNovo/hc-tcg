@@ -21,10 +21,10 @@
 
 .beef:hover {
 	text-decoration: underline;
-}
 
-.beef:hover .avatar {
-	box-shadow: 0 0 3px 1px black;
+	.avatar {
+		box-shadow: 0 0 3px 1px black;
+	}
 }
 
 @media screen and (max-width: 150vh) {
@@ -39,6 +39,7 @@
 	.beef {
 		font-size: 1.5vh;
 	}
+
 	.avatar {
 		width: 5vh;
 		height: 5vh;

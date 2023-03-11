@@ -1,5 +1,5 @@
-import {EffectCardT} from 'types/cards'
-import css from './effect-card-svg.module.css'
+import {EffectCardT} from 'common/types/cards'
+import css from './effect-card-svg.module.scss'
 
 export type EffectCardProps = {
 	card: EffectCardT
