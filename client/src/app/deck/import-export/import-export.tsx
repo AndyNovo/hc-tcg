@@ -3,7 +3,7 @@ import {CardInfoT} from 'types/cards'
 import {CardT} from 'types/game-state'
 import CARDS from 'server/cards'
 import css from './import-export.module.css'
-import {universe} from './import-export-const'
+import {universe, randomdecks} from './import-export-const'
 import Modal from 'components/modal'
 
 const TYPED_CARDS = CARDS as Record<string, CardInfoT>
@@ -34,6 +34,13 @@ const ImportExport = ({pickedCards, setPickedCards, close}: Props) => {
 		setPickedCards(deckCards)
 	}
 
+	const randomDeck = () => {
+		if (!inputRef.current) return
+		const idx = Math.floor(Math.random() * randomdecks.length)
+		inputRef.current.value = randomdecks[idx]
+		importDeck()
+	}
+
 	const exportDeck = () => {
 		if (!inputRef.current) return
 		const indicies = []
@@ -56,6 +63,9 @@ const ImportExport = ({pickedCards, setPickedCards, close}: Props) => {
 					</button>
 					<button type="button" onClick={exportDeck}>
 						Export
+					</button>
+					<button type="button" onClick={randomDeck}>
+						Random
 					</button>
 				</div>
 			</div>
