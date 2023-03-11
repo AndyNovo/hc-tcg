@@ -48,6 +48,20 @@ const ImportExport = ({pickedCards, setPickedCards, close}: Props) => {
 		inputRef.current.value = b64cards
 	}
 
+	const urlParams = new URLSearchParams(document.location.search || '')
+	if (urlParams.has('deck')) {
+		setTimeout(() => {
+			const b64cards = urlParams.get('deck') || ''
+			window.history.replaceState({}, '', window.location.pathname)
+			if (!inputRef.current) {
+				console.log('should be set...')
+			} else {
+				inputRef.current.value = b64cards
+				importDeck()
+			}
+		}, 500)
+	}
+
 	return (
 		<Modal title="Import/Export" closeModal={close}>
 			<div className={css.importExport}>
